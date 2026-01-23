@@ -1,0 +1,387 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>WoW Classic Raid Crafter</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      body {
+        background-color: #0a0a0a;
+        color: #e0e0e0;
+        font-family: "Inter", system-ui, sans-serif;
+      }
+      .card {
+        background-color: #121212;
+        border: 1px solid #282828;
+      }
+      .input-qty {
+        background-color: #1a1a1a;
+        border-left: 1px solid #333;
+        border-right: 1px solid #333;
+        color: white;
+        outline: none;
+      }
+      .rarity-uncommon {
+        color: #1eff00;
+      }
+      .rarity-rare {
+        color: #0070dd;
+      }
+
+      .stepper-btn {
+        @apply px-3 py-1 bg-zinc-800 hover:bg-zinc-700 active:bg-zinc-600 transition-colors font-bold text-gray-300;
+      }
+
+      /* Tooltip */
+      .tooltip-container {
+        position: relative;
+        cursor: help;
+      }
+      .tooltip-text {
+        visibility: hidden;
+        width: 220px;
+        background-color: #050505;
+        color: #fff;
+        border: 1px solid #ffd100;
+        padding: 12px;
+        border-radius: 6px;
+        position: absolute;
+        z-index: 50;
+        bottom: 130%;
+        left: 0;
+        opacity: 0;
+        transition: all 0.2s ease;
+        font-size: 0.75rem;
+        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5);
+        pointer-events: none;
+      }
+      .tooltip-container:hover .tooltip-text {
+        visibility: visible;
+        opacity: 1;
+        transform: translateY(-5px);
+      }
+
+      /* Hide Arrows in Chrome/Safari/Edge/Firefox */
+      input::-webkit-outer-spin-button,
+      input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+      }
+      input[type="number"] {
+        -moz-appearance: textfield;
+      }
+    </style>
+  </head>
+  <body class="p-4 md:p-8">
+    <div class="max-w-7xl mx-auto">
+      <header
+        class="mb-8 border-b border-yellow-800/40 pb-6 flex justify-between items-center"
+      >
+        <div>
+          <h1
+            class="text-4xl font-black text-yellow-500 tracking-tighter uppercase italic"
+          >
+            Raid Crafter
+          </h1>
+          <p
+            class="text-zinc-500 text-sm font-medium tracking-widest uppercase"
+          >
+            Endgame CaC & Caster Shopping List
+          </p>
+        </div>
+        <button
+          onclick="window.location.reload()"
+          class="bg-zinc-900 hover:bg-red-950/30 text-zinc-500 hover:text-red-500 border border-zinc-800 px-4 py-2 rounded text-xs transition-all font-bold tracking-widest"
+        >
+          RESET ALL
+        </button>
+      </header>
+
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-10 text-xs">
+        <section class="card p-5 rounded-xl shadow-lg">
+          <h2
+            class="text-orange-500 font-black mb-4 uppercase tracking-[0.3em] flex items-center border-b border-orange-900/30 pb-2"
+          >
+            ⚔️ Melee / CaC
+          </h2>
+          <div id="cac-list" class="space-y-3"></div>
+        </section>
+
+        <section class="card p-5 rounded-xl shadow-lg">
+          <h2
+            class="text-blue-400 font-black mb-4 uppercase tracking-[0.3em] flex items-center border-b border-blue-900/30 pb-2"
+          >
+            ✨ Spell Power
+          </h2>
+          <div id="spell-list" class="space-y-3"></div>
+        </section>
+
+        <section class="card p-5 rounded-xl shadow-lg">
+          <h2
+            class="text-purple-400 font-black mb-4 uppercase tracking-[0.3em] flex items-center border-b border-purple-900/30 pb-2"
+          >
+            🛡️ Utils & Flasks
+          </h2>
+          <div id="utils-list" class="space-y-3"></div>
+        </section>
+      </div>
+
+      <section class="card p-8 rounded-xl shadow-2xl">
+        <h2 class="text-xl font-bold mb-6 text-yellow-500 flex items-center">
+          📋 Material Summary
+        </h2>
+        <div class="overflow-x-auto">
+          <table class="w-full text-sm text-left">
+            <thead
+              class="text-zinc-500 uppercase text-[10px] tracking-[0.2em] border-b border-zinc-800"
+            >
+              <tr>
+                <th class="py-4">Ingredient</th>
+                <th class="py-4 text-center">In My Bags</th>
+                <th class="py-4 text-center">Needed</th>
+                <th class="py-4 text-right">Status</th>
+              </tr>
+            </thead>
+            <tbody id="recap-body" class="divide-y divide-zinc-800/50"></tbody>
+          </table>
+          <div id="empty-msg" class="text-center py-16 text-zinc-700 italic">
+            Select quantities to generate shopping list...
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <script>
+      const potions = [
+        {
+          id: "mongoose",
+          cat: "cac",
+          ico: "🐱",
+          name: "Mongoose Elixir",
+          rarity: "uncommon",
+          desc: "+25 Agility, +2% Crit.",
+          mats: { "Mountain Silversage": 2, Plaguebloom: 2, "Crystal Vial": 1 },
+        },
+        {
+          id: "giants",
+          cat: "cac",
+          ico: "👹",
+          name: "Elixir of Giants",
+          rarity: "uncommon",
+          desc: "+25 Strength.",
+          mats: { Sungrass: 1, Gromsblood: 1, "Crystal Vial": 1 },
+        },
+        {
+          id: "rage",
+          cat: "cac",
+          ico: "😡",
+          name: "Mighty Rage Potion",
+          rarity: "uncommon",
+          desc: "Rage burst.",
+          mats: { Gromsblood: 3, "Crystal Vial": 1 },
+        },
+
+        {
+          id: "firepower",
+          cat: "spell",
+          ico: "🔥",
+          name: "Firepower",
+          rarity: "uncommon",
+          desc: "+40 Fire Damage.",
+          mats: { Firebloom: 2, "Fire Oil": 3, "Crystal Vial": 1 },
+        },
+        {
+          id: "shadowpower",
+          cat: "spell",
+          ico: "🌑",
+          name: "Shadow Power",
+          rarity: "uncommon",
+          desc: "+40 Shadow Damage.",
+          mats: { "Ghost Mushroom": 3, "Crystal Vial": 1 },
+        },
+        {
+          id: "arcane",
+          cat: "spell",
+          ico: "🔮",
+          name: "Greater Arcane",
+          rarity: "uncommon",
+          desc: "+35 Spell Power.",
+          mats: { Dreamfoil: 3, "Mountain Silversage": 1, "Crystal Vial": 1 },
+        },
+        {
+          id: "flask_spell",
+          cat: "spell",
+          ico: "🧪",
+          name: "Supreme Flask",
+          rarity: "rare",
+          desc: "+150 Spell Power.",
+          mats: {
+            Dreamfoil: 30,
+            "Mountain Silversage": 10,
+            "Black Lotus": 1,
+            "Crystal Vial": 1,
+          },
+        },
+
+        {
+          id: "titans",
+          cat: "utils",
+          ico: "🏔️",
+          name: "Flask of Titans",
+          rarity: "rare",
+          desc: "+1200 Health.",
+          mats: {
+            Gromsblood: 30,
+            "Stonescale Oil": 10,
+            "Black Lotus": 1,
+            "Crystal Vial": 1,
+          },
+        },
+        {
+          id: "mana",
+          cat: "utils",
+          ico: "💧",
+          name: "Major Mana",
+          rarity: "uncommon",
+          desc: "Restores Mana.",
+          mats: { Dreamfoil: 3, Icecap: 2, "Crystal Vial": 1 },
+        },
+        {
+          id: "f_res",
+          cat: "utils",
+          ico: "🛡️🔥",
+          name: "Fire Prot",
+          rarity: "uncommon",
+          desc: "Absorbs Fire.",
+          mats: { "Elemental Fire": 1, Dreamfoil: 1, "Crystal Vial": 1 },
+        },
+        {
+          id: "n_res",
+          cat: "utils",
+          ico: "🛡️🌿",
+          name: "Nature Prot",
+          rarity: "uncommon",
+          desc: "Absorbs Nature.",
+          mats: { "Elemental Earth": 1, Dreamfoil: 1, "Crystal Vial": 1 },
+        },
+        {
+          id: "s_res",
+          cat: "utils",
+          ico: "🛡️🌑",
+          name: "Shadow Prot",
+          rarity: "uncommon",
+          desc: "Absorbs Shadow.",
+          mats: { "Shadow Oil": 1, Dreamfoil: 1, "Crystal Vial": 1 },
+        },
+      ];
+
+      let selected = {};
+      let inventory = {};
+
+      function init() {
+        potions.forEach((p) => {
+          const container = document.getElementById(`${p.cat}-list`);
+          const div = document.createElement("div");
+          div.className =
+            "flex items-center justify-between p-2 rounded-lg bg-zinc-900/40 border border-zinc-800 group";
+          div.innerHTML = `
+                    <div class="tooltip-container">
+                        <span class="cursor-help flex items-center">
+                            <span class="mr-2">${p.ico}</span>
+                            <span class="rarity-${p.rarity} font-semibold">${p.name}</span>
+                        </span>
+                        <div class="tooltip-text">
+                            <p class="text-yellow-500 font-black mb-1">${p.name}</p>
+                            <p class="text-zinc-400 italic mb-2">"${p.desc}"</p>
+                            <div class="text-[10px] text-zinc-500 uppercase border-t border-zinc-800 pt-2 font-mono">
+                                ${Object.entries(p.mats)
+                                  .map(([m, q]) => `• ${q}x ${m}`)
+                                  .join("<br>")}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex items-center rounded overflow-hidden">
+                        <button class="stepper-btn" onclick="modifyStep('${p.id}', -1)">−</button>
+                        <input type="number" id="qty-${p.id}" value="0" min="0" 
+                               class="input-qty w-10 text-center text-xs py-1 font-bold"
+                               oninput="handleInput('${p.id}', this.value)">
+                        <button class="stepper-btn" onclick="modifyStep('${p.id}', 1)">+</button>
+                    </div>
+                `;
+          container.appendChild(div);
+        });
+      }
+
+      function modifyStep(id, delta) {
+        const current = selected[id] || 0;
+        const next = Math.max(0, current + delta);
+        updateLogic(id, next);
+      }
+
+      function handleInput(id, val) {
+        const next = Math.max(0, parseInt(val) || 0);
+        updateLogic(id, next);
+      }
+
+      function updateLogic(id, val) {
+        selected[id] = val;
+        document.getElementById(`qty-${id}`).value = val;
+        updateRecap();
+      }
+
+      function updateInv(mat, val) {
+        inventory[mat] = parseInt(val) || 0;
+        updateRecap();
+      }
+
+      function updateRecap() {
+        const totals = {};
+        potions.forEach((p) => {
+          const qty = selected[p.id] || 0;
+          if (qty > 0) {
+            for (const [mat, req] of Object.entries(p.mats)) {
+              totals[mat] = (totals[mat] || 0) + req * qty;
+            }
+          }
+        });
+
+        const body = document.getElementById("recap-body");
+        const empty = document.getElementById("empty-msg");
+        body.innerHTML = "";
+        const sorted = Object.keys(totals).sort();
+
+        if (sorted.length === 0) {
+          empty.style.display = "block";
+          return;
+        }
+        empty.style.display = "none";
+
+        sorted.forEach((mat) => {
+          const req = totals[mat];
+          const have = inventory[mat] || 0;
+          const diff = Math.max(0, req - have);
+          const tr = document.createElement("tr");
+          tr.innerHTML = `
+                    <td class="py-4 font-medium text-zinc-300">${mat}</td>
+                    <td class="py-4 text-center">
+                        <input type="number" min="0" value="${have}" class="bg-zinc-900 border border-zinc-700 w-20 text-center rounded-md text-xs py-1.5 focus:ring-1 ring-yellow-500 outline-none"
+                               oninput="updateInv('${mat}', this.value)">
+                    </td>
+                    <td class="py-4 text-center text-yellow-500 font-bold text-lg">${req}</td>
+                    <td class="py-4 text-right">
+                        ${
+                          diff > 0
+                            ? `<span class="text-red-500 font-bold bg-red-500/10 px-3 py-1 rounded">FARM ${diff}</span>`
+                            : `<span class="text-green-500 font-bold bg-green-500/10 px-3 py-1 rounded">READY</span>`
+                        }
+                    </td>
+                `;
+          body.appendChild(tr);
+        });
+      }
+
+      init();
+    </script>
+  </body>
+</html>
