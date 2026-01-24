@@ -1,13 +1,14 @@
 const fs = require("fs/promises");
 const plants = [
-  { name: "Black Lotus", id: 13468, rarity: "epic", price: 35.0 },
-  { name: "Icecap", id: 13467, rarity: "uncommon", price: 0.85 },
-  { name: "Plaguebloom", id: 13466, rarity: "uncommon", price: 1.1 },
-  { name: "Mountain Silversage", id: 13465, rarity: "uncommon", price: 0.9 },
-  { name: "Dreamfoil", id: 13463, rarity: "uncommon", price: 0.55 },
-  { name: "Gromsblood", id: 8846, rarity: "uncommon", price: 0.4 },
-  { name: "Ghost Mushroom", id: 8845, rarity: "uncommon", price: 1.25 },
-  { name: "Crystal Vial", id: 8925, rarity: "common", price: 0.05 },
+  { name: "Black Lotus", id: 13468, rarity: "epic" },
+  { name: "Icecap", id: 13467, rarity: "uncommon" },
+  { name: "Plaguebloom", id: 13466, rarity: "uncommon" },
+  { name: "Mountain Silversage", id: 13465, rarity: "uncommon" },
+  { name: "Dreamfoil", id: 13463, rarity: "uncommon" },
+  { name: "Gromsblood", id: 8846, rarity: "uncommon" },
+  { name: "Ghost Mushroom", id: 8845, rarity: "uncommon" },
+  { name: "Firebloom", id: 4625, rarity: "uncommon" },
+  { name: "Crystal Vial", id: 8925, rarity: "common" },
 ];
 
 async function fetchPlantData() {

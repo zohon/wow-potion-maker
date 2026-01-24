@@ -43,7 +43,6 @@
         @apply px-3 py-1 bg-zinc-800 hover:bg-zinc-700 active:bg-zinc-600 transition-colors font-bold text-gray-300;
       }
 
-      /* Custom Scrollbar */
       .custom-scroll::-webkit-scrollbar {
         width: 4px;
       }
@@ -52,7 +51,6 @@
         border-radius: 10px;
       }
 
-      /* Tooltip */
       .tooltip-container {
         position: relative;
         cursor: help;
@@ -79,30 +77,12 @@
         opacity: 1;
         transform: translateY(-5px);
       }
-
       img {
         height: fit-content;
       }
     </style>
   </head>
   <body class="flex flex-col lg:flex-row min-h-screen">
-    <script>
-      const observer = new MutationObserver((mutations) => {
-        mutations.forEach((mutation) => {
-          mutation.addedNodes.forEach((node) => {
-            if (node.nodeName === "IFRAME" && node.src.includes("google")) {
-              console.warn("Blocked unauthorized iframe:", node.src);
-              node.remove();
-            }
-          });
-        });
-      });
-      observer.observe(document.documentElement, {
-        childList: true,
-        subtree: true,
-      });
-    </script>
-
     <aside
       class="w-full lg:w-72 bg-[#0d0d0d] border-r border-zinc-800 p-6 lg:h-screen lg:sticky lg:top-0 custom-scroll overflow-y-auto"
     >
@@ -137,8 +117,11 @@
             </p>
           </div>
           <div class="text-right">
-            <div id="total-cost" class="text-white mb-2 flex">
-              Total
+            <div
+              id="total-cost-header"
+              class="text-white mb-2 flex justify-end"
+            >
+              Total: 0g 0s
             </div>
             <button
               onclick="window.location.reload()"
@@ -177,9 +160,17 @@
         </div>
 
         <section class="card p-6 rounded-xl shadow-2xl">
-          <h2 class="text-lg font-bold mb-6 text-yellow-500">
-            📋 Material Shopping List
-          </h2>
+          <div class="flex justify-between items-center mb-6">
+            <h2 class="text-lg font-bold text-yellow-500">
+              📋 Material Shopping List
+            </h2>
+            <button
+              onclick="resetInventory()"
+              class="text-[10px] text-zinc-600 hover:text-red-500 border border-zinc-800 px-2 py-1 rounded font-bold transition-all"
+            >
+              RESET ALL DATA
+            </button>
+          </div>
           <table class="w-full text-sm text-left">
             <thead
               class="text-zinc-500 uppercase text-[10px] tracking-widest border-b border-zinc-800"
@@ -196,43 +187,14 @@
           <div id="empty-msg" class="text-center py-16 text-zinc-700 italic">
             Select quantities to generate shopping list...
           </div>
-          <div id="total-cost"></div>
-        </div>
-      </section>
-    </div>
+        </section>
+      </div>
+    </main>
 
     <script>
-      const BUILD_ID = "uT0Wc_Uhbe5mhpGkk6ziK";
-      const BASE_URL = `https://www.wowauctions.net/_next/data/${BUILD_ID}/auctionHouse/turtle-wow/ambershire/mergedAh`;
-
       let plants = [];
-      /*
-      [
-        { name: "Black Lotus", id: 13468, rarity: "epic", price: 35.0 },
-        { name: "Icecap", id: 13467, rarity: "uncommon", price: 0.85 },
-        { name: "Plaguebloom", id: 13466, rarity: "uncommon", price: 1.1 },
-        {
-          name: "Mountain Silversage",
-          id: 13465,
-          rarity: "uncommon",
-          price: 0.9,
-        },
-        { name: "Dreamfoil", id: 13463, rarity: "uncommon", price: 0.55 },
-        { name: "Gromsblood", id: 8846, rarity: "uncommon", price: 0.4 },
-        { name: "Ghost Mushroom", id: 8845, rarity: "uncommon", price: 1.25 },
-        { name: "Crystal Vial", id: 8925, rarity: "common", price: 0.05 },
-      ];*/
-
-      async function loadPlants() {
-        try {
-          // 1. Fetch the JSON file
-          const response = await fetch("plants_data.json");
-          plants = await response.json();
-          document.getElementById("fetch-status").innerText = "live";
-        } catch (error) {
-          console.error("Error loading JSON:", error);
-        }
-      }
+      let selected = JSON.parse(localStorage.getItem("rc_selected")) || {};
+      let inventory = JSON.parse(localStorage.getItem("rc_inventory")) || {};
 
       const potions = [
         {
@@ -262,7 +224,6 @@
           desc: "Rage burst.",
           mats: { Gromsblood: 3, "Crystal Vial": 1 },
         },
-
         {
           id: "firepower",
           cat: "spell",
@@ -304,7 +265,6 @@
             "Crystal Vial": 1,
           },
         },
-
         {
           id: "titans",
           cat: "utils",
@@ -357,143 +317,150 @@
         },
       ];
 
-      let selected = {};
-      let inventory = {};
-
-      function formatPrice(gold) {
-        const g = Math.floor(gold);
-        const s = Math.round((gold - g) * 100);
-        return `<span class="gold">${g}g</span> <span class="silver">${s}s</span>`;
+      async function loadPlants() {
+        try {
+          const response = await fetch("plants_data.json");
+          plants = await response.json();
+          document.getElementById("fetch-status").innerText = "live";
+          renderSidebar();
+        } catch (error) {
+          console.error("Error loading JSON:", error);
+          document.getElementById("fetch-status").innerText = "offline";
+        }
       }
 
       function convertCopper(amount) {
-        // 1 Gold = 10,000 Copper | 1 Silver = 100 Copper
-        const gold = Math.floor(amount / 10000);
-        const silver = Math.floor((amount % 10000) / 100);
-        const copper = amount % 100;
         return {
-          gold: gold,
-          silver: silver,
-          copper: copper,
+          gold: Math.floor(amount / 10000),
+          silver: Math.floor((amount % 10000) / 100),
+          copper: amount % 100,
         };
       }
 
       function convertAndDisplay(priceItem) {
-                   const price = convertCopper(priceItem);
-            return [
-              price.gold > 0 && `<div class="flex items-center">${price.gold}<img src="https://wow.zamimg.com/images/icons/money-gold.gif"></div>`,
-              price.silver > 0 && `<div class="flex items-center">${price.silver}<img src="https://wow.zamimg.com/images/icons/money-silver.gif"></div>`,
-              price.copper > 0 && `<div class="flex items-center">${price.copper}<img src="https://wow.zamimg.com/images/icons/money-copper.gif"></div>`,
-            ]
-              .filter(Boolean)
-              .join(" ");
+        const price = convertCopper(priceItem);
+        return [
+          price.gold > 0 &&
+            `<div class="flex items-center">${price.gold}<img src="https://wow.zamimg.com/images/icons/money-gold.gif"></div>`,
+          price.silver > 0 &&
+            `<div class="flex items-center">${price.silver}<img src="https://wow.zamimg.com/images/icons/money-silver.gif"></div>`,
+          price.copper > 0 &&
+            `<div class="flex items-center">${price.copper}<img src="https://wow.zamimg.com/images/icons/money-copper.gif"></div>`,
+        ]
+          .filter(Boolean)
+          .join(" ");
       }
 
-      function getTimeAgo(date) {
-  const now = new Date();
-  const past = new Date(date);
-  const diffInMs = now - past; // Difference in milliseconds
+      const generateTooltip = (plant) => {
+        if (!plant.name) {
+          plant = plants.find(({ name }) => name === plant);
+        }
 
-  // Define time units in milliseconds
-  const msInDay = 1000 * 60 * 60 * 24;
-  const msInHour = 1000 * 60 * 60;
-  const msInMinute = 1000 * 60;
-
-  // Calculate units using remainder logic
-  const days = Math.floor(diffInMs / msInDay);
-  const hours = Math.floor((diffInMs % msInDay) / msInHour);
-  const minutes = Math.floor((diffInMs % msInHour) / msInMinute);
-
-  return [
-              days> 0 && `${days}d`,
-              hours > 0 && `${hours}h`,
-              minutes > 0 && `${minutes}m`,
-            ]
-              .filter(Boolean)
-              .join(" ");
-}
+        if (!plant) {
+          return;
+        }
+        return `<div class="tooltip-text">
+                <p class="text-yellow-500 font-black mb-1">${plant.name} (${plant.data.item_count})</p>
+                <div class="text-[10px] text-zinc-500 uppercase border-t border-zinc-800 pt-2 font-mono">
+                  <div class="flex justify-between">Min buyout <div class="flex gap-2">${convertAndDisplay(plant.data.minimum_buyout)}</div></div>
+                  <div class="flex justify-between">Average <div class="flex gap-2">${convertAndDisplay(plant.data.avg_price)}</div></div>
+                </div>
+              </div>`;
+      };
 
       function renderSidebar() {
         const container = document.getElementById("plant-list");
         container.innerHTML = plants
-          .map((p) => {
-            const displayPrice = convertAndDisplay(p.data.minimum_buyout)
-            return `
-                <div class="group border-l-2 border-zinc-800 hover:border-yellow-600 pl-3 py-1">
-                    <div class="flex justify-between items-start tooltip-container">
-                        <div class="tooltip-text">
-                            <p class="text-yellow-500 font-black mb-1">${p.name} (${p.data.item_count})</p>
-                            <div class="text-[10px] text-zinc-500 uppercase border-t border-zinc-800 pt-2 font-mono">
-                               <div class="flex justify-between">Min byout <div class="flex gap-2">${convertAndDisplay(p.data.minimum_buyout)}</div></div>
-                               <div class="flex justify-between">Average <div class="flex gap-2">${convertAndDisplay(p.data.avg_price)}</div></div>
-                            </div>
-                        </div>
-                        <p class="text-xs font-bold rarity-${p.rarity}">${p.name} </p>
-                        <span class="text-[10px] font-mono text-yellow-500/80 flex gap-2">${convertAndDisplay(p.data.minimum_buyout)}</span>
-                    </div>
-                    <p class="text-[9px] text-zinc-600 font-mono">ID: ${p.id} Count: ${p.data.item_count}</p>
-                </div>
-            `;
-          })
+          .map(
+            (plant) => `
+          <div class="group border-l-2 border-zinc-800 hover:border-yellow-600 pl-3 py-1">
+            <div class="flex justify-between items-start tooltip-container">
+              ${generateTooltip(plant) ?? ""}
+              <p class="text-xs font-bold rarity-${plant.rarity}">${plant.name}</p>
+              <span class="text-[10px] font-mono text-yellow-500/80 flex gap-2">${convertAndDisplay(plant.data.minimum_buyout)}</span>
+            </div>
+            <p class="text-[9px] text-zinc-600 font-mono">ID: ${plant.id} Count: ${plant.data.item_count}</p>
+          </div>
+        `,
+          )
           .join("");
       }
 
       async function init() {
         await loadPlants();
-        renderSidebar();
         potions.forEach((p) => {
           const container = document.getElementById(`${p.cat}-list`);
           const div = document.createElement("div");
+          const savedQty = selected[p.id] || 0;
           div.className =
             "flex items-center justify-between p-2 rounded-lg bg-zinc-900/40 border border-zinc-800 group";
           div.innerHTML = `
-                    <div class="tooltip-container">
-                        <span class="cursor-help flex items-center">
-                            <span class="mr-2">${p.ico}</span>
-                            <span class="rarity-${p.rarity} font-semibold">${p.name}</span>
-                        </span>
-                        <div class="tooltip-text">
-                            <p class="text-yellow-500 font-black mb-1">${p.name}</p>
-                            <p class="text-zinc-400 italic mb-2">"${p.desc}"</p>
-                            <div class="text-[10px] text-zinc-500 uppercase border-t border-zinc-800 pt-2 font-mono">
-                                ${Object.entries(p.mats)
-                                  .map(([m, q]) => `• ${q}x ${m}`)
-                                  .join("<br>")}
-                            </div>
-                        </div>
-                    </div>
-                    <div class="flex items-center rounded overflow-hidden">
-                        <button class="stepper-btn" onclick="modifyStep('${p.id}', -1)">−</button>
-                        <input type="number" id="qty-${p.id}" value="0" min="0" 
-                               class="input-qty w-10 text-center text-xs py-1 font-bold"
-                               oninput="handleInput('${p.id}', this.value)">
-                        <button class="stepper-btn" onclick="modifyStep('${p.id}', 1)">+</button>
-                    </div>
-                `;
+            <div class="tooltip-container">
+              <span class="cursor-help flex items-center">
+                <span class="mr-2">${p.ico}</span>
+                <span class="rarity-${p.rarity} font-semibold">${p.name}</span>
+              </span>
+              <div class="tooltip-text">
+                <p class="text-yellow-500 font-black mb-1">${p.name}</p>
+                <p class="text-zinc-400 italic mb-2">"${p.desc}"</p>
+                <div class="text-[10px] text-zinc-500 uppercase border-t border-zinc-800 pt-2 font-mono">
+                  ${Object.entries(p.mats)
+                    .map(([m, q]) => `• ${q}x ${m}`)
+                    .join("<br>")}
+                </div>
+              </div>
+            </div>
+            <div class="flex items-center rounded overflow-hidden">
+              <button class="stepper-btn" onclick="modifyStep('${p.id}', -1)">−</button>
+              <input type="number" id="qty-${p.id}" value="${savedQty}" min="0" 
+                     class="input-qty w-10 text-center text-xs py-1 font-bold"
+                     oninput="handleInput('${p.id}', this.value)">
+              <button class="stepper-btn" onclick="modifyStep('${p.id}', 1)">+</button>
+            </div>
+          `;
           container.appendChild(div);
         });
+        updateRecap();
       }
 
       function modifyStep(id, delta) {
         const current = selected[id] || 0;
-        const next = Math.max(0, current + delta);
-        updateLogic(id, next);
+        updateLogic(id, Math.max(0, current + delta));
       }
 
       function handleInput(id, val) {
-        const next = Math.max(0, parseInt(val) || 0);
-        updateLogic(id, next);
+        updateLogic(id, Math.max(0, parseInt(val) || 0));
       }
 
       function updateLogic(id, val) {
         selected[id] = val;
         document.getElementById(`qty-${id}`).value = val;
+        localStorage.setItem("rc_selected", JSON.stringify(selected));
         updateRecap();
       }
 
       function updateInv(mat, val) {
-        inventory[mat] = parseInt(val) || 0;
+        inventory[mat] = Math.max(0, parseInt(val) || 0);
+        localStorage.setItem("rc_inventory", JSON.stringify(inventory));
         updateRecap();
+      }
+
+      function resetInventory() {
+        if (
+          confirm(
+            "Are you sure you want to clear all quantities and inventory?",
+          )
+        ) {
+          selected = {};
+          inventory = {};
+          localStorage.removeItem("rc_selected");
+          localStorage.removeItem("rc_inventory");
+          // Reset UI inputs
+          potions.forEach(
+            (p) => (document.getElementById(`qty-${p.id}`).value = 0),
+          );
+          updateRecap();
+        }
       }
 
       function updateRecap() {
@@ -510,60 +477,56 @@
         const body = document.getElementById("recap-body");
         const empty = document.getElementById("empty-msg");
         body.innerHTML = "";
-
         const sorted = Object.keys(totals).sort();
 
         if (sorted.length === 0) {
           empty.style.display = "block";
+          document.getElementById("total-cost-header").innerHTML =
+            "Total: 0g 0s";
           return;
         }
         empty.style.display = "none";
 
+        let grandTotal = 0;
+
         sorted.forEach((mat) => {
-          console.log('mat', mat)
           const req = totals[mat];
           const have = inventory[mat] || 0;
           const diff = Math.max(0, req - have);
+
+          // Cost calculation
+          const itemPlant = plants.find((p) => p.name === mat);
+          if (itemPlant) grandTotal += itemPlant.data.minimum_buyout * diff;
+
           const tr = document.createElement("tr");
           tr.innerHTML = `
-                    <td class="py-4 font-medium text-zinc-300">${mat}</td>
-                    <td class="py-4 text-center">
-                        <input type="number" min="0" value="${have}" class="bg-zinc-900 border border-zinc-700 w-20 text-center rounded-md text-xs py-1.5 focus:ring-1 ring-yellow-500 outline-none"
-                               onchange="updateInv('${mat}', this.value)">
-                    </td>
-                    <td class="py-4 text-center text-yellow-500 font-bold text-lg">${req}</td>
-                    <td class="py-4 text-right">
-                        ${
-                          diff > 0
-                            ? `<span class="text-red-500 font-bold bg-red-500/10 px-3 py-1 rounded">FARM ${diff}</span>`
-                            : `<span class="text-green-500 font-bold bg-green-500/10 px-3 py-1 rounded">READY</span>`
-                        }
-                    </td>
-                `;
+            <td class="py-4 font-medium text-zinc-300">
+              <div class="tooltip-container">
+                ${mat}
+                ${generateTooltip(mat) ?? ""}
+                </div>
+              </td>
+            <td class="py-4 text-center">
+              <input type="number" min="0" value="${have}" 
+                     class="bg-zinc-900 border border-zinc-700 w-20 text-center rounded-md text-xs py-1.5 focus:ring-1 ring-yellow-500 outline-none"
+                     onchange="updateInv('${mat}', this.value)">
+            </td>
+            <td class="py-4 text-center text-yellow-500 font-bold text-lg">${req}</td>
+            <td class="py-4 text-right">
+              ${
+                diff > 0
+                  ? `<span class="text-red-500 font-bold bg-red-500/10 px-3 py-1 rounded">FARM ${diff}</span>`
+                  : `<span class="text-green-500 font-bold bg-green-500/10 px-3 py-1 rounded">READY</span>`
+              }
+            </td>
+          `;
           body.appendChild(tr);
         });
 
-        const allPlantNeeded = sorted.map(item => {
-          const itemPlant = plants.find(plant => plant.name === item)
-          if(itemPlant) {
-            return {
-              name : item,
-              price : itemPlant.data.minimum_buyout,
-              plant:itemPlant,
-              quantity : totals[item]
-            }
-          }
-          return;
+        console.log("grandTotal", grandTotal);
 
-        }).filter(item => item !== undefined)
-
-        const grandTotal = allPlantNeeded.reduce((prices, {price, quantity}) => {
-          return prices + (price*quantity)
-        }, 0)
-
-        console.log('allPlantNeeded', allPlantNeeded, grandTotal)
-        document.getElementById("total-cost").innerHTML = 
-          `Total:&nbsp;${convertAndDisplay(grandTotal)}`;
+        document.getElementById("total-cost-header").innerHTML =
+          `Total Needed: &nbsp;${convertAndDisplay(grandTotal)}`;
       }
 
       init();
