@@ -1,0 +1,106 @@
+[
+  {
+    "name": "Black Lotus",
+    "id": 13468,
+    "data": {
+      "scan_id": 2901153,
+      "item_entry": 13468,
+      "item_last_seen": "2026-01-24 09:23:20",
+      "avg_price": 124234,
+      "minimum_buyout": 110000,
+      "minimum_bid": 9999,
+      "item_count": 205
+    }
+  },
+  {
+    "name": "Icecap",
+    "id": 13467,
+    "data": {
+      "scan_id": 2901153,
+      "item_entry": 13467,
+      "item_last_seen": "2026-01-24 09:23:20",
+      "avg_price": 1899,
+      "minimum_buyout": 1899,
+      "minimum_bid": 250,
+      "item_count": 903
+    }
+  },
+  {
+    "name": "Plaguebloom",
+    "id": 13466,
+    "data": {
+      "scan_id": 2901153,
+      "item_entry": 13466,
+      "item_last_seen": "2026-01-24 09:23:20",
+      "avg_price": 979,
+      "minimum_buyout": 948,
+      "minimum_bid": 250,
+      "item_count": 908
+    }
+  },
+  {
+    "name": "Mountain Silversage",
+    "id": 13465,
+    "data": {
+      "scan_id": 2901153,
+      "item_entry": 13465,
+      "item_last_seen": "2026-01-24 09:23:20",
+      "avg_price": 2008,
+      "minimum_buyout": 1623,
+      "minimum_bid": 1623,
+      "item_count": 696
+    }
+  },
+  {
+    "name": "Dreamfoil",
+    "id": 13463,
+    "data": {
+      "scan_id": 2901153,
+      "item_entry": 13463,
+      "item_last_seen": "2026-01-24 09:23:20",
+      "avg_price": 2391,
+      "minimum_buyout": 1996,
+      "minimum_bid": 100,
+      "item_count": 2205
+    }
+  },
+  {
+    "name": "Gromsblood",
+    "id": 8846,
+    "data": {
+      "scan_id": 2901153,
+      "item_entry": 8846,
+      "item_last_seen": "2026-01-24 09:23:20",
+      "avg_price": 918,
+      "minimum_buyout": 869,
+      "minimum_bid": 375,
+      "item_count": 1280
+    }
+  },
+  {
+    "name": "Ghost Mushroom",
+    "id": 8845,
+    "data": {
+      "scan_id": 2901153,
+      "item_entry": 8845,
+      "item_last_seen": "2026-01-24 09:23:20",
+      "avg_price": 2116,
+      "minimum_buyout": 1899,
+      "minimum_bid": 375,
+      "item_count": 370
+    }
+  },
+  {
+    "name": "Crystal Vial",
+    "id": 8925,
+    "data": {
+      "scan_id": 2901153,
+      "item_entry": 8925,
+      "item_last_seen": "2026-01-24 09:23:20",
+      "avg_price": 820,
+      "minimum_buyout": 820,
+      "minimum_bid": 820,
+      "item_count": 80
+    }
+  }
+]
