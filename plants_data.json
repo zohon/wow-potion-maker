@@ -3,117 +3,117 @@
     "name": "Black Lotus",
     "id": 13468,
     "data": {
-      "scan_id": 2907060,
+      "scan_id": 2907106,
       "item_entry": 13468,
-      "item_last_seen": "2026-02-08 02:43:23",
-      "avg_price": 113095,
-      "minimum_buyout": 105496,
-      "minimum_bid": 1500,
-      "item_count": 204
+      "item_last_seen": "2026-02-08 05:23:23",
+      "avg_price": 112493,
+      "minimum_buyout": 104500,
+      "minimum_bid": 1000,
+      "item_count": 210
     }
   },
   {
     "name": "Icecap",
     "id": 13467,
     "data": {
-      "scan_id": 2907060,
+      "scan_id": 2907106,
       "item_entry": 13467,
-      "item_last_seen": "2026-02-08 02:43:23",
-      "avg_price": 466,
-      "minimum_buyout": 440,
-      "minimum_bid": 375,
-      "item_count": 1423
+      "item_last_seen": "2026-02-08 05:23:23",
+      "avg_price": 441,
+      "minimum_buyout": 367,
+      "minimum_bid": 250,
+      "item_count": 1675
     }
   },
   {
     "name": "Plaguebloom",
     "id": 13466,
     "data": {
-      "scan_id": 2907060,
+      "scan_id": 2907106,
       "item_entry": 13466,
-      "item_last_seen": "2026-02-08 02:43:23",
-      "avg_price": 918,
-      "minimum_buyout": 850,
-      "minimum_bid": 375,
-      "item_count": 2206
+      "item_last_seen": "2026-02-08 05:23:23",
+      "avg_price": 500,
+      "minimum_buyout": 500,
+      "minimum_bid": 250,
+      "item_count": 2646
     }
   },
   {
     "name": "Mountain Silversage",
     "id": 13465,
     "data": {
-      "scan_id": 2907060,
+      "scan_id": 2907106,
       "item_entry": 13465,
-      "item_last_seen": "2026-02-08 02:43:23",
-      "avg_price": 2221,
-      "minimum_buyout": 2221,
-      "minimum_bid": 225,
-      "item_count": 21
+      "item_last_seen": "2026-02-08 05:23:23",
+      "avg_price": 1997,
+      "minimum_buyout": 1997,
+      "minimum_bid": 150,
+      "item_count": 336
     }
   },
   {
     "name": "Dreamfoil",
     "id": 13463,
     "data": {
-      "scan_id": 2907060,
+      "scan_id": 2907106,
       "item_entry": 13463,
-      "item_last_seen": "2026-02-08 02:43:23",
-      "avg_price": 2786,
-      "minimum_buyout": 2399,
+      "item_last_seen": "2026-02-08 05:23:23",
+      "avg_price": 2322,
+      "minimum_buyout": 2247,
       "minimum_bid": 150,
-      "item_count": 1827
+      "item_count": 2411
     }
   },
   {
     "name": "Gromsblood",
     "id": 8846,
     "data": {
-      "scan_id": 2907060,
+      "scan_id": 2907106,
       "item_entry": 8846,
-      "item_last_seen": "2026-02-08 02:43:23",
-      "avg_price": 1187,
-      "minimum_buyout": 1174,
-      "minimum_bid": 375,
-      "item_count": 1266
+      "item_last_seen": "2026-02-08 05:23:23",
+      "avg_price": 1092,
+      "minimum_buyout": 999,
+      "minimum_bid": 250,
+      "item_count": 1584
     }
   },
   {
     "name": "Ghost Mushroom",
     "id": 8845,
     "data": {
-      "scan_id": 2907060,
+      "scan_id": 2907106,
       "item_entry": 8845,
-      "item_last_seen": "2026-02-08 02:43:23",
-      "avg_price": 2391,
-      "minimum_buyout": 1987,
+      "item_last_seen": "2026-02-08 05:23:23",
+      "avg_price": 2398,
+      "minimum_buyout": 2354,
       "minimum_bid": 562,
-      "item_count": 277
+      "item_count": 239
     }
   },
   {
     "name": "Firebloom",
     "id": 4625,
     "data": {
-      "scan_id": 2907060,
+      "scan_id": 2907106,
       "item_entry": 4625,
-      "item_last_seen": "2026-02-08 02:43:23",
-      "avg_price": 519,
-      "minimum_buyout": 514,
-      "minimum_bid": 267,
-      "item_count": 1032
+      "item_last_seen": "2026-02-08 05:23:23",
+      "avg_price": 364,
+      "minimum_buyout": 364,
+      "minimum_bid": 250,
+      "item_count": 1170
     }
   },
   {
     "name": "Crystal Vial",
     "id": 8925,
     "data": {
-      "scan_id": 2907060,
+      "scan_id": 2907106,
       "item_entry": 8925,
-      "item_last_seen": "2026-02-08 02:43:23",
+      "item_last_seen": "2026-02-08 05:23:23",
       "avg_price": 896,
       "minimum_buyout": 896,
       "minimum_bid": 358,
-      "item_count": 19
+      "item_count": 9
     }
   }
 ]
