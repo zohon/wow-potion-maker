@@ -3,117 +3,117 @@
     "name": "Black Lotus",
     "id": 13468,
     "data": {
-      "scan_id": 2911864,
+      "scan_id": 2911914,
       "item_entry": 13468,
-      "item_last_seen": "2026-02-20 02:03:15",
-      "avg_price": 114550,
-      "minimum_buyout": 109999,
+      "item_last_seen": "2026-02-20 05:03:04",
+      "avg_price": 112550,
+      "minimum_buyout": 109498,
       "minimum_bid": 50000,
-      "item_count": 99
+      "item_count": 107
     }
   },
   {
     "name": "Icecap",
     "id": 13467,
     "data": {
-      "scan_id": 2911864,
+      "scan_id": 2911914,
       "item_entry": 13467,
-      "item_last_seen": "2026-02-20 02:03:15",
+      "item_last_seen": "2026-02-20 05:03:04",
       "avg_price": 410,
-      "minimum_buyout": 400,
+      "minimum_buyout": 390,
       "minimum_bid": 375,
-      "item_count": 1193
+      "item_count": 1169
     }
   },
   {
     "name": "Plaguebloom",
     "id": 13466,
     "data": {
-      "scan_id": 2911864,
+      "scan_id": 2911914,
       "item_entry": 13466,
-      "item_last_seen": "2026-02-20 02:03:15",
-      "avg_price": 574,
-      "minimum_buyout": 499,
-      "minimum_bid": 499,
-      "item_count": 1611
+      "item_last_seen": "2026-02-20 05:03:04",
+      "avg_price": 634,
+      "minimum_buyout": 624,
+      "minimum_bid": 100,
+      "item_count": 1329
     }
   },
   {
     "name": "Mountain Silversage",
     "id": 13465,
     "data": {
-      "scan_id": 2911864,
+      "scan_id": 2911914,
       "item_entry": 13465,
-      "item_last_seen": "2026-02-20 02:03:15",
-      "avg_price": 2848,
-      "minimum_buyout": 2800,
+      "item_last_seen": "2026-02-20 05:03:04",
+      "avg_price": 2779,
+      "minimum_buyout": 2539,
       "minimum_bid": 225,
-      "item_count": 529
+      "item_count": 600
     }
   },
   {
     "name": "Dreamfoil",
     "id": 13463,
     "data": {
-      "scan_id": 2911864,
+      "scan_id": 2911914,
       "item_entry": 13463,
-      "item_last_seen": "2026-02-20 02:03:15",
-      "avg_price": 2743,
-      "minimum_buyout": 2657,
+      "item_last_seen": "2026-02-20 05:03:04",
+      "avg_price": 2967,
+      "minimum_buyout": 2924,
       "minimum_bid": 150,
-      "item_count": 1372
+      "item_count": 744
     }
   },
   {
     "name": "Gromsblood",
     "id": 8846,
     "data": {
-      "scan_id": 2911864,
+      "scan_id": 2911914,
       "item_entry": 8846,
-      "item_last_seen": "2026-02-20 02:03:15",
-      "avg_price": 927,
-      "minimum_buyout": 890,
-      "minimum_bid": 825,
-      "item_count": 1607
+      "item_last_seen": "2026-02-20 05:03:04",
+      "avg_price": 923,
+      "minimum_buyout": 800,
+      "minimum_bid": 800,
+      "item_count": 1684
     }
   },
   {
     "name": "Ghost Mushroom",
     "id": 8845,
     "data": {
-      "scan_id": 2911864,
+      "scan_id": 2911914,
       "item_entry": 8845,
-      "item_last_seen": "2026-02-20 02:03:15",
-      "avg_price": 2522,
-      "minimum_buyout": 2199,
-      "minimum_bid": 2199,
-      "item_count": 1132
+      "item_last_seen": "2026-02-20 05:03:04",
+      "avg_price": 2253,
+      "minimum_buyout": 2093,
+      "minimum_bid": 2093,
+      "item_count": 987
     }
   },
   {
     "name": "Firebloom",
     "id": 4625,
     "data": {
-      "scan_id": 2911864,
+      "scan_id": 2911914,
       "item_entry": 4625,
-      "item_last_seen": "2026-02-20 02:03:15",
-      "avg_price": 299,
-      "minimum_buyout": 291,
-      "minimum_bid": 266,
-      "item_count": 856
+      "item_last_seen": "2026-02-20 05:03:04",
+      "avg_price": 454,
+      "minimum_buyout": 450,
+      "minimum_bid": 375,
+      "item_count": 477
     }
   },
   {
     "name": "Crystal Vial",
     "id": 8925,
     "data": {
-      "scan_id": 2911864,
+      "scan_id": 2911914,
       "item_entry": 8925,
-      "item_last_seen": "2026-02-20 02:03:15",
-      "avg_price": 799,
+      "item_last_seen": "2026-02-20 05:03:04",
+      "avg_price": 793,
       "minimum_buyout": 745,
       "minimum_bid": 600,
-      "item_count": 224
+      "item_count": 202
     }
   }
 ]
