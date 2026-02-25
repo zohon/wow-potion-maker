@@ -3,117 +3,117 @@
     "name": "Black Lotus",
     "id": 13468,
     "data": {
-      "scan_id": 2914109,
+      "scan_id": 2914162,
       "item_entry": 13468,
-      "item_last_seen": "2026-02-25 17:03:29",
-      "avg_price": 119997,
-      "minimum_buyout": 119996,
-      "minimum_bid": 119996,
-      "item_count": 78
+      "item_last_seen": "2026-02-25 20:23:25",
+      "avg_price": 118087,
+      "minimum_buyout": 112099,
+      "minimum_bid": 99999,
+      "item_count": 160
     }
   },
   {
     "name": "Icecap",
     "id": 13467,
     "data": {
-      "scan_id": 2914109,
+      "scan_id": 2914162,
       "item_entry": 13467,
-      "item_last_seen": "2026-02-25 17:03:29",
-      "avg_price": 870,
-      "minimum_buyout": 870,
-      "minimum_bid": 675,
-      "item_count": 453
+      "item_last_seen": "2026-02-25 20:23:25",
+      "avg_price": 430,
+      "minimum_buyout": 430,
+      "minimum_bid": 375,
+      "item_count": 908
     }
   },
   {
     "name": "Plaguebloom",
     "id": 13466,
     "data": {
-      "scan_id": 2914109,
+      "scan_id": 2914162,
       "item_entry": 13466,
-      "item_last_seen": "2026-02-25 17:03:29",
-      "avg_price": 705,
-      "minimum_buyout": 674,
+      "item_last_seen": "2026-02-25 20:23:25",
+      "avg_price": 829,
+      "minimum_buyout": 699,
       "minimum_bid": 375,
-      "item_count": 958
+      "item_count": 919
     }
   },
   {
     "name": "Mountain Silversage",
     "id": 13465,
     "data": {
-      "scan_id": 2914109,
+      "scan_id": 2914162,
       "item_entry": 13465,
-      "item_last_seen": "2026-02-25 17:03:29",
-      "avg_price": 3347,
-      "minimum_buyout": 2898,
+      "item_last_seen": "2026-02-25 20:23:25",
+      "avg_price": 3281,
+      "minimum_buyout": 2665,
       "minimum_bid": 225,
-      "item_count": 1596
+      "item_count": 1496
     }
   },
   {
     "name": "Dreamfoil",
     "id": 13463,
     "data": {
-      "scan_id": 2914109,
+      "scan_id": 2914162,
       "item_entry": 13463,
-      "item_last_seen": "2026-02-25 17:03:29",
-      "avg_price": 3333,
-      "minimum_buyout": 3332,
+      "item_last_seen": "2026-02-25 20:23:25",
+      "avg_price": 3025,
+      "minimum_buyout": 2700,
       "minimum_bid": 150,
-      "item_count": 463
+      "item_count": 1365
     }
   },
   {
     "name": "Gromsblood",
     "id": 8846,
     "data": {
-      "scan_id": 2914109,
+      "scan_id": 2914162,
       "item_entry": 8846,
-      "item_last_seen": "2026-02-25 17:03:29",
-      "avg_price": 1086,
-      "minimum_buyout": 989,
+      "item_last_seen": "2026-02-25 20:23:25",
+      "avg_price": 1083,
+      "minimum_buyout": 999,
       "minimum_bid": 375,
-      "item_count": 3221
+      "item_count": 3148
     }
   },
   {
     "name": "Ghost Mushroom",
     "id": 8845,
     "data": {
-      "scan_id": 2914109,
+      "scan_id": 2914162,
       "item_entry": 8845,
-      "item_last_seen": "2026-02-25 17:03:29",
-      "avg_price": 2495,
-      "minimum_buyout": 2243,
-      "minimum_bid": 2243,
-      "item_count": 453
+      "item_last_seen": "2026-02-25 20:23:25",
+      "avg_price": 2308,
+      "minimum_buyout": 2123,
+      "minimum_bid": 562,
+      "item_count": 513
     }
   },
   {
     "name": "Firebloom",
     "id": 4625,
     "data": {
-      "scan_id": 2914109,
+      "scan_id": 2914162,
       "item_entry": 4625,
-      "item_last_seen": "2026-02-25 17:03:29",
-      "avg_price": 431,
-      "minimum_buyout": 417,
+      "item_last_seen": "2026-02-25 20:23:25",
+      "avg_price": 456,
+      "minimum_buyout": 387,
       "minimum_bid": 375,
-      "item_count": 2017
+      "item_count": 1413
     }
   },
   {
     "name": "Crystal Vial",
     "id": 8925,
     "data": {
-      "scan_id": 2914109,
+      "scan_id": 2914162,
       "item_entry": 8925,
-      "item_last_seen": "2026-02-25 17:03:29",
+      "item_last_seen": "2026-02-25 20:23:25",
       "avg_price": 714,
       "minimum_buyout": 714,
-      "minimum_bid": 450,
-      "item_count": 109
+      "minimum_bid": 224,
+      "item_count": 105
     }
   }
 ]
