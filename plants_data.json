@@ -3,117 +3,117 @@
     "name": "Black Lotus",
     "id": 13468,
     "data": {
-      "scan_id": 2922331,
+      "scan_id": 2922432,
       "item_entry": 13468,
-      "item_last_seen": "2026-03-17 20:23:34",
-      "avg_price": 143743,
-      "minimum_buyout": 139893,
+      "item_last_seen": "2026-03-18 02:23:29",
+      "avg_price": 140177,
+      "minimum_buyout": 134999,
       "minimum_bid": 5000,
-      "item_count": 135
+      "item_count": 155
     }
   },
   {
     "name": "Icecap",
     "id": 13467,
     "data": {
-      "scan_id": 2922331,
+      "scan_id": 2922432,
       "item_entry": 13467,
-      "item_last_seen": "2026-03-17 20:23:34",
-      "avg_price": 564,
-      "minimum_buyout": 559,
+      "item_last_seen": "2026-03-18 02:23:29",
+      "avg_price": 587,
+      "minimum_buyout": 524,
       "minimum_bid": 250,
-      "item_count": 2119
+      "item_count": 2477
     }
   },
   {
     "name": "Plaguebloom",
     "id": 13466,
     "data": {
-      "scan_id": 2922331,
+      "scan_id": 2922432,
       "item_entry": 13466,
-      "item_last_seen": "2026-03-17 20:23:34",
-      "avg_price": 909,
-      "minimum_buyout": 874,
+      "item_last_seen": "2026-03-18 02:23:29",
+      "avg_price": 918,
+      "minimum_buyout": 873,
       "minimum_bid": 100,
-      "item_count": 1047
+      "item_count": 957
     }
   },
   {
     "name": "Mountain Silversage",
     "id": 13465,
     "data": {
-      "scan_id": 2922331,
+      "scan_id": 2922432,
       "item_entry": 13465,
-      "item_last_seen": "2026-03-17 20:23:34",
-      "avg_price": 4894,
-      "minimum_buyout": 4771,
-      "minimum_bid": 200,
-      "item_count": 1522
+      "item_last_seen": "2026-03-18 02:23:29",
+      "avg_price": 4504,
+      "minimum_buyout": 4224,
+      "minimum_bid": 150,
+      "item_count": 2678
     }
   },
   {
     "name": "Dreamfoil",
     "id": 13463,
     "data": {
-      "scan_id": 2922331,
+      "scan_id": 2922432,
       "item_entry": 13463,
-      "item_last_seen": "2026-03-17 20:23:34",
-      "avg_price": 5158,
-      "minimum_buyout": 4849,
+      "item_last_seen": "2026-03-18 02:23:29",
+      "avg_price": 5210,
+      "minimum_buyout": 4550,
       "minimum_bid": 100,
-      "item_count": 2347
+      "item_count": 1830
     }
   },
   {
     "name": "Gromsblood",
     "id": 8846,
     "data": {
-      "scan_id": 2922331,
+      "scan_id": 2922432,
       "item_entry": 8846,
-      "item_last_seen": "2026-03-17 20:23:34",
-      "avg_price": 956,
-      "minimum_buyout": 849,
+      "item_last_seen": "2026-03-18 02:23:29",
+      "avg_price": 1224,
+      "minimum_buyout": 1224,
       "minimum_bid": 375,
-      "item_count": 2181
+      "item_count": 1004
     }
   },
   {
     "name": "Ghost Mushroom",
     "id": 8845,
     "data": {
-      "scan_id": 2922331,
+      "scan_id": 2922432,
       "item_entry": 8845,
-      "item_last_seen": "2026-03-17 20:23:34",
-      "avg_price": 2563,
-      "minimum_buyout": 2497,
+      "item_last_seen": "2026-03-18 02:23:29",
+      "avg_price": 2396,
+      "minimum_buyout": 2000,
       "minimum_bid": 562,
-      "item_count": 626
+      "item_count": 828
     }
   },
   {
     "name": "Firebloom",
     "id": 4625,
     "data": {
-      "scan_id": 2922331,
+      "scan_id": 2922432,
       "item_entry": 4625,
-      "item_last_seen": "2026-03-17 20:23:34",
-      "avg_price": 417,
-      "minimum_buyout": 365,
-      "minimum_bid": 250,
-      "item_count": 1912
+      "item_last_seen": "2026-03-18 02:23:29",
+      "avg_price": 662,
+      "minimum_buyout": 375,
+      "minimum_bid": 375,
+      "item_count": 1439
     }
   },
   {
     "name": "Crystal Vial",
     "id": 8925,
     "data": {
-      "scan_id": 2922331,
+      "scan_id": 2922432,
       "item_entry": 8925,
-      "item_last_seen": "2026-03-17 20:23:34",
-      "avg_price": 749,
-      "minimum_buyout": 749,
-      "minimum_bid": 749,
-      "item_count": 67
+      "item_last_seen": "2026-03-18 02:23:29",
+      "avg_price": 999,
+      "minimum_buyout": 999,
+      "minimum_bid": 999,
+      "item_count": 213
     }
   }
 ]
